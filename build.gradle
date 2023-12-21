@@ -11,9 +11,23 @@ java {
     sourceCompatibility = '17'
 }
 
+
 repositories {
     mavenCentral()
 }
+
+
+
+tasks.register('updateGitHooks', Copy) {
+    from './.github/hooks/'
+    into './.git/hooks'
+    fileMode 0755
+
+    include '*'
+}
+
+compileJava.dependsOn updateGitHooks
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
